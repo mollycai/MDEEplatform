@@ -1,0 +1,48 @@
+{
+  "buttons": {
+    "loginOut": "退出系统",
+    "confirm": "确认",
+    "cancel": "取消",
+    "switch": "切换",
+    "close": "关闭",
+    "backTop": "回到顶部",
+    "openText": "开",
+    "closeText": "关",
+    "clickCollapse": "点击折叠",
+    "clickExpand": "点击展开",
+    "hint": "提示"
+  },
+  "panel": {
+    "systemSet": "系统配置",
+    "clearCache": "清空缓存",
+    "overallStyle": "整体风格",
+    "overallStyleLight": "浅色",
+    "overallStyleDark": "深色",
+    "themeColor": "主题色",
+    "layoutModel": "导航模式",
+    "interfaceDisplay": "界面显示",
+    "greyModel": "灰色模式",
+    "hiddenTags": "隐藏标签页",
+    "hiddenFooter": "隐藏页脚",
+    "multiTagsCache": "页签持久化"
+  },
+  "notification": {
+    "load": "加载中...",
+    "message": "消息",
+    "notify": "通知",
+    "todo": "待办",
+    "noMessage": "暂无消息",
+    "noNotify": "暂无通知",
+    "noTodo": "暂无待办"
+  },
+  "login": {
+    "username": "账号",
+    "password": "密码",
+    "login": "登录",
+    "loginSuccess": "登录成功",
+    "loginFail": "登录失败",
+    "usernameReg": "请输入账号",
+    "passWordReg": "请输入密码",
+    "passWordRuleReg": "密码格式应为8-18位数字、字母、符号的任意两种组合"
+  }
+}

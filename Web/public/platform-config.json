@@ -1,0 +1,15 @@
+{
+  "Version": "1.0.1",
+  "Title": "MolyAdmin",
+  "KeepAlive": true,
+  "Layout": "vertical",
+  "Locale": "zh",
+  "MultiTagsCache":false,
+  "Theme": "default",
+  "Grey": false,
+  "DarkMode": false,
+  "EpThemeColor": "#409EFF",
+  "ShowLogo": true,
+  "HideTabs": false,
+  "HideFooter": false
+}

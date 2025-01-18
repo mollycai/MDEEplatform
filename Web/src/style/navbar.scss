@@ -1,0 +1,25 @@
+.set-icon,
+.fullscreen-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 48px;
+  cursor: pointer;
+}
+/* 国际化 */
+.translation,
+/* 搜索 */
+.search-container,
+/* 全屏 */
+.fullscreen-icon,
+/* 消息通知 */
+.dropdown-badge,
+/* 用户名 */
+.el-dropdown-link,
+/* 设置 */
+.set-icon {
+  &:hover {
+    background: #f6f6f6;
+  }
+}

@@ -1,0 +1,86 @@
+// @use './theme.scss' as *;
+@use './dark';
+@use './transition';
+@use './navbar';
+@use './sidebar.scss';
+
+/* 自定义全局 CssVar */
+:root {
+  /* 左侧菜单展开、收起动画时长 */
+  --moly-transition-duration: 0.3s;
+
+  /* 常用border-color 需要时可取用 */
+  --moly-border-color: rgb(5 5 5 / 6%);
+
+  /* switch关闭状态下的color 需要时可取用 */
+  --moly-switch-off-color: #a6a6a6;
+
+  /* 在root导入主题相关的变量 */
+  // @use './theme.scss';
+  --subMenuActiveText: var(--subMenuActiveText);
+  --menuBg: var(--menuBg);
+  --menuHover: var(--menuHover);
+  --subMenuBg: var(--subMenuBg);
+  --subMenuActiveBg: var(--subMenuActiveBg);
+  --menuText: var(--menuText);
+  --sidebarLogo: var(--sidebarLogo);
+  --menuTitleHover: var(--menuTitleHover);
+  --menuActiveBefore: var(--menuActiveBefore);
+}
+
+/* 灰色模式 */
+.html-grey {
+  filter: grayscale(100%);
+}
+
+/** 重写element-plus layout布局 */
+.el-aside {
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: left;
+  cursor: pointer;
+  height: 100vh;
+  border-right: 1px solid var(--moly-border-color);
+  transition: width var(--moly-transition-duration);
+}
+.el-main {
+  padding: 0 !important;
+  background: #f0f2f5;
+  transition: width var(--moly-transition-duration);
+}
+
+/** 页面切换动画效果 */
+.slide-fade-enter-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+}
+
+.slide-fade-leave-active,
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+
+.page-container {
+  background-color: #fff;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+}
+
+/* 移动端分页器适配 */
+@media (max-width: 768px) {
+  .el-pagination {
+    font-size: 10px; /* 调整字体大小 */
+  }
+  .el-pagination__sizes {
+    display: none; /* 隐藏页面大小选择器 */
+  }
+  .el-pagination__jump {
+    display: none !important; /* 隐藏跳转功能 */
+  }
+}
+
+.el-table th {
+  background-color: #f7f7f7 !important; /* 灰色背景 */
+  color: #444444; /* 字体颜色 */
+}

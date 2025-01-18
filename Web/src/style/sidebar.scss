@@ -1,0 +1,588 @@
+@mixin merge-style($sideBarWidth) {
+  .sub-menu-icon {
+    margin-right: 5px;
+    font-size: 18px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .scrollbar-wrapper {
+    overflow-x: hidden !important;
+  }
+
+  .main-container {
+    position: relative;
+    height: 100vh;
+    min-height: 100%;
+    margin-left: $sideBarWidth;
+    background: #f0f2f5;
+
+    /* main-content 属性动画 */
+    transition: margin-left var(--moly-transition-duration);
+
+    .el-scrollbar__wrap {
+      height: 100%;
+      overflow: auto;
+    }
+  }
+
+  .sidebar-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    width: $sideBarWidth !important;
+    height: 100%;
+    overflow: visible;
+    font-size: 0;
+    background: var(--menuBg);
+    border-right: 1px solid var(--moly-border-color);
+    transition: width var(--moly-transition-duration);
+
+    .el-menu {
+      height: calc(100% - 48px);
+      background-color: transparent !important;
+      border: none;
+    }
+
+    &.has-logo {
+      .el-scrollbar.pc {
+        /* logo: 48px、leftCollapse: 40px、leftCollapse-shadow: 4px */
+        height: calc(100% - 92px);
+      }
+
+      /* logo: 48px */
+      .el-scrollbar.mobile {
+        height: calc(100% - 48px);
+      }
+    }
+
+    &.no-logo {
+      .el-scrollbar.pc {
+        /* leftCollapse: 40px、leftCollapse-shadow: 4px */
+        height: calc(100% - 44px);
+      }
+
+      .el-scrollbar.mobile {
+        height: 100%;
+      }
+    }
+
+    .el-menu-item,
+    .el-sub-menu__title {
+      height: 50px;
+      color: var(--menuText);
+      background-color: transparent !important;
+
+      &:hover {
+        color: var(--menuTitleHover) !important;
+      }
+    }
+
+    .submenu-title-noDropdown,
+    .el-sub-menu__title {
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    .is-active > .el-sub-menu__title,
+    .is-active.submenu-title-noDropdown {
+      color: var(--subMenuActiveText) !important;
+
+      i {
+        color: var(--subMenuActiveText) !important;
+      }
+    }
+
+    .is-active {
+      color: var(--subMenuActiveText) !important;
+      transition: color 0.3s;
+    }
+
+    .el-menu-item.is-active.nest-menu > * {
+      z-index: 1;
+      color: #fff;
+    }
+
+    .el-menu-item.is-active.nest-menu::before {
+      position: absolute;
+      inset: 0 8px;
+      margin: 4px 0;
+      clear: both;
+      content: '';
+      background: var(--el-color-primary) !important;
+      border-radius: 3px;
+    }
+
+    .el-menu .el-menu--inline .el-sub-menu__title,
+    & .el-sub-menu .el-menu-item {
+      min-width: var(--sideBarWidth) !important;
+      font-size: 14px;
+      background-color: var(--subMenuBg) !important;
+    }
+
+    /* 有子集的激活菜单左侧小竖条 */
+    .el-menu--collapse .is-active.outer-most.el-sub-menu > .el-sub-menu__title::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      clear: both;
+      content: '';
+      background-color: var(--menuActiveBefore);
+      transition: all var(--moly-transition-duration) ease-in-out;
+      transform: translateY(0);
+    }
+
+    .el-menu--collapse .outer-most.el-sub-menu > .el-sub-menu__title::before {
+      position: absolute;
+      top: 50%;
+      display: block;
+      width: 3px;
+      height: 0;
+      content: '';
+      transform: translateY(-50%);
+    }
+
+    /* 无子集的激活菜单背景 */
+    .is-active.submenu-title-noDropdown.outer-most > * {
+      z-index: 1;
+      color: #fff;
+    }
+
+    .is-active.submenu-title-noDropdown.outer-most::before {
+      position: absolute;
+      inset: 0 8px;
+      margin: 4px 0;
+      clear: both;
+      content: '';
+      background: var(--el-color-primary) !important;
+      border-radius: 3px;
+    }
+  }
+
+  /* 手机端 */
+  .mobile {
+    .fixed-header {
+      width: 100% !important;
+      transition: width var(--moly-transition-duration);
+    }
+
+    .main-container {
+      margin-left: 0 !important;
+    }
+
+    .sidebar-container {
+      z-index: 2001;
+      width: $sideBarWidth;
+      transition: transform var(--moly-transition-duration);
+    }
+
+    &.hideSidebar {
+      .sidebar-container {
+        pointer-events: none;
+        transition-duration: 0.3s;
+        transform: translate3d(-$sideBarWidth, 0, 0);
+      }
+    }
+  }
+
+  /* vertical 菜单*/
+  .el-menu--vertical {
+    .el-menu--popup {
+      background-color: var(--subMenuBg) !important;
+      .el-menu-item {
+        span {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .is-active > .el-sub-menu__title,
+    .is-active.submenu-title-noDropdown {
+      color: var(--subMenuActiveText) !important;
+
+      i {
+        color: var(--subMenuActiveText) !important;
+      }
+    }
+
+    /* 子菜单中还有子菜单 */
+    .el-menu .el-sub-menu__title {
+      min-width: var(--sideBarWidth) !important;
+      font-size: 14px;
+      background-color: var(--subMenuBg) !important;
+    }
+
+    .el-menu-item,
+    .el-sub-menu__title {
+      height: 50px;
+      color: var(--menuText);
+      background-color: transparent !important;
+
+      &:hover {
+        color: var(--menuTitleHover) !important;
+      }
+    }
+
+    .submenu-title-noDropdown,
+    .el-sub-menu__title {
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    .is-active > .el-sub-menu__title,
+    .is-active.submenu-title-noDropdown {
+      color: var(--subMenuActiveText) !important;
+
+      i {
+        color: var(--subMenuActiveText) !important;
+      }
+    }
+
+    .is-active {
+      color: var(--subMenuActiveText) !important;
+      transition: color 0.3s;
+    }
+
+    .el-menu-item.is-active.nest-menu > * {
+      z-index: 1;
+      color: #fff;
+    }
+
+    .el-menu-item.is-active.nest-menu::before {
+      position: absolute;
+      inset: 0 8px;
+      clear: both;
+      content: '';
+      background: var(--el-color-primary) !important;
+      border-radius: 3px;
+    }
+
+    .el-menu-item,
+    .el-sub-menu {
+      .iconfont {
+        font-size: 18px;
+      }
+
+      .el-menu-tooltip__trigger {
+        width: 54px;
+        padding: 0;
+      }
+    }
+  }
+
+  /* horizontal 菜单 */
+  .el-menu--horizontal {
+    & > .el-menu .submenu-title-noDropdown,
+    & > .el-sub-menu .el-sub-menu__title {
+      &:hover {
+        background-color: transparent !important;
+      }
+    }
+
+    .el-menu-item {
+      &:not(.is-disabled) {
+        &:hover {
+          background-color: transparent !important;
+        }
+      }
+    }
+
+    & > .el-sub-menu .el-sub-menu__icon-arrow {
+      position: static !important;
+      margin-top: 0;
+    }
+
+    /* 无子菜单时激活 border-bottom */
+    a > .is-active.submenu-title-noDropdown {
+      border-bottom: 2px solid var(--el-menu-active-color);
+    }
+
+    .el-menu--popup {
+      background-color: var(--subMenuBg) !important;
+
+      a > .is-active.submenu-title-noDropdown {
+        border-bottom: none;
+      }
+
+      .el-menu-item {
+        color: var(--menuText);
+        background-color: var(--subMenuBg);
+
+        span {
+          font-size: 14px;
+        }
+      }
+
+      .el-sub-menu__title {
+        color: var(--menuText);
+      }
+    }
+
+    /* 子菜单中还有子菜单 */
+    .el-menu .el-sub-menu__title {
+      min-width: var(--sideBarWidth) !important;
+      font-size: 14px;
+      background-color: var(--subMenuBg) !important;
+
+      &:hover {
+        color: var(--menuTitleHover) !important;
+      }
+    }
+
+    .is-active > .el-sub-menu__title,
+    .is-active.submenu-title-noDropdown {
+      color: var(--subMenuActiveText) !important;
+
+      i {
+        color: var(--subMenuActiveText) !important;
+      }
+    }
+
+    .nest-menu .el-sub-menu > .el-sub-menu__title,
+    .el-menu-item {
+      &:hover {
+        color: var(--menuTitleHover) !important;
+      }
+    }
+
+    .el-menu-item.is-active {
+      color: var(--subMenuActiveText) !important;
+      transition: color 0.3s;
+    }
+
+    .el-menu-item.is-active.nest-menu > * {
+      z-index: 1;
+      color: #fff;
+    }
+
+    .el-menu-item.is-active.nest-menu::before {
+      position: absolute;
+      inset: 0 5px;
+      clear: both;
+      content: '';
+      background: var(--el-color-primary) !important;
+      border-radius: 3px;
+    }
+  }
+
+  .horizontal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 48px;
+    background: var(--menuBg);
+
+    .horizontal-header-left {
+      display: flex;
+      align-items: center;
+      width: auto;
+      min-width: 200px;
+      height: 100%;
+      padding-left: 10px;
+      cursor: pointer;
+      transition: all var(--moly-transition-duration) ease;
+
+      img {
+        display: inline-block;
+        height: 32px;
+      }
+
+      span {
+        display: inline-block;
+        height: 32px;
+        margin: 2px 0 0 12px;
+        overflow: hidden;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 32px;
+        color: var(--subMenuActiveText);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    .horizontal-header-menu {
+      flex: 1;
+      align-items: center;
+      min-width: 0;
+      height: 100%;
+    }
+
+    .horizontal-header-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      min-width: 340px;
+      color: var(--subMenuActiveText);
+
+      /* 国际化 */
+      .translation,
+    /* 搜索 */
+    .search-container,
+    /* 全屏 */
+    .fullscreen-icon,
+    /* 消息通知 */
+    .dropdown-badge,
+    /* 用户名 */
+    .el-dropdown-link,
+    /* 设置 */
+    .set-icon {
+        &:hover {
+          background: var(--menuHover);
+        }
+      }
+
+      .dropdown-badge {
+        height: 48px;
+        color: var(--subMenuActiveText);
+      }
+
+      .el-dropdown-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        height: 48px;
+        padding: 10px;
+        color: var(--subMenuActiveText);
+        cursor: pointer;
+
+        p {
+          font-size: 14px;
+        }
+
+        img {
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .el-menu {
+      width: 100% !important;
+      height: 100%;
+      background-color: transparent;
+      border: none;
+    }
+
+    .el-menu-item,
+    .el-sub-menu__title {
+      padding-right: var(--el-menu-base-level-padding);
+      color: var(--menuText);
+
+      &:hover {
+        color: var(--menuTitleHover) !important;
+      }
+    }
+
+    .submenu-title-noDropdown,
+    .el-sub-menu__title {
+      height: 48px;
+      line-height: 48px;
+      background: var(--menuBg);
+
+      svg {
+        position: static !important;
+      }
+    }
+
+    .is-active > .el-sub-menu__title,
+    .is-active.submenu-title-noDropdown {
+      color: var(--subMenuActiveText) !important;
+
+      i {
+        color: var(--subMenuActiveText) !important;
+      }
+    }
+
+    .is-active {
+      color: var(--subMenuActiveText) !important;
+      transition: color 0.3s;
+    }
+  }
+
+  .el-menu--collapse .el-menu .el-sub-menu {
+    min-width: var(--sideBarWidth) !important;
+  }
+}
+
+body[layout='vertical'] {
+  $sideBarWidth: 210px;
+
+  @include merge-style($sideBarWidth);
+
+  .el-menu--collapse {
+    width: 54px;
+  }
+
+  .sidebar-logo-container {
+    background: var(--sidebarLogo);
+  }
+
+  .hideSidebar {
+    .fixed-header {
+      width: calc(100% - 54px);
+      transition: width var(--moly-transition-duration);
+    }
+
+    .sidebar-container {
+      width: 54px !important;
+      transition: width var(--moly-transition-duration);
+
+      .is-active.submenu-title-noDropdown.outer-most {
+        background: transparent !important;
+      }
+    }
+
+    .main-container {
+      margin-left: 54px;
+    }
+
+    /* 菜单折叠 */
+    .el-menu--collapse {
+      .el-sub-menu {
+        & > .el-sub-menu__title {
+          & > span {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            visibility: visible;
+          }
+        }
+      }
+
+      .submenu-title-noDropdown {
+        background: transparent !important;
+      }
+    }
+
+    .sub-menu-icon {
+      margin-right: 0;
+    }
+  }
+}
+
+body[layout='horizontal'] {
+  $sideBarWidth: 0;
+
+  @include merge-style($sideBarWidth);
+
+  .fixed-header,
+  .main-container {
+    transition: none !important;
+  }
+
+  .fixed-header {
+    width: 100%;
+  }
+}

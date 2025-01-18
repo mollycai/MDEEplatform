@@ -1,0 +1,48 @@
+{
+  "buttons": {
+    "loginOut": "Login Out",
+    "confirm": "confirm",
+    "cancel": "cancel",
+    "switch": "switch",
+    "close": "close",
+    "backTop": "Back Top",
+    "openText": "open",
+    "closeText": "close",
+    "clickCollapse": "Collapse",
+    "clickExpand": "Expand",
+    "hint": "Hint"
+  },
+  "panel": {
+    "systemSet": "System Set",
+    "clearCache": "Clear Cache",
+    "overallStyle": "Overall Style",
+    "overallStyleLight": "Light",
+    "overallStyleDark": "Dark",
+    "themeColor": "Theme Color",
+    "layoutModel": "Layout Model",
+    "interfaceDisplay": "Interface Display",
+    "greyModel": "Grey Model",
+    "hiddenTags": "Hidden Tags",
+    "hiddenFooter": "Hidden Footer",
+    "multiTagsCache": "MultiTags Cache"
+  },
+  "notification": {
+    "load": "loading...",
+    "message": "message",
+    "notify": "notify",
+    "todo": "todo",
+    "noMessage": "No Message",
+    "noNotify": "No Notify",
+    "noTodo": "No Todo"
+  },
+  "login": {
+    "username": "Username",
+    "password": "Password",
+    "login": "Login",
+    "loginSuccess": "Login Success",
+    "loginFail": "Login Fail",
+    "usernameReg": "Please enter username",
+    "passWordReg": "Please enter password",
+    "passWordRuleReg": "The password format should be any combination of 8-18 digits"
+  }
+}
