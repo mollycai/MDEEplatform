@@ -136,7 +136,8 @@ INSERT INTO sys_menu (menu_id, menu_name, menu_key, parent_id, order_num, path, 
 VALUES 
 (1, '系统管理', 'system', 0, 2, '/system', null, 'M', '1', '0', '0', 'ep:menu', 'superadmin', sysdate(), '一级菜单：系统管理'),
 (2, '系统监控', 'monitor', 0, 3, '/monitor', null, 'M', '1', '0', '0', 'ep:platform', 'superadmin', sysdate(), '一级菜单：系统监控'),
-(3, '系统工具', 'tools', 0, 4, '/tools', null, 'M', '1', '0', '0', 'ep:tools', 'superadmin', sysdate(), '一级菜单：系统工具');
+(3, '在线教学', 'education', 0, 4, '/education', null, 'M', '1', '0', '0', 'tdesign:education-filled', 'superadmin', sysdate(), '一级菜单：在线教学'),
+(4, '在线实验', 'experiment', 0, 5, '/experiment', null, 'M', '1', '0', '0', 'ant-design:experiment-filled', 'superadmin', sysdate(), '一级菜单：在线实验');
 
 -- 插入二级菜单（系统管理）
 INSERT INTO sys_menu (menu_id, menu_name, menu_key, parent_id, order_num, path, component, menu_type, is_frame, visible, status, perms, create_by, create_time, remark)
@@ -160,10 +161,19 @@ VALUES
 (201, '在线用户', 'online', 2, 1, '/monitor/online/index', '/monitor/online/index', 'C', '1', '0', '0', 'monitor:online:list', 'superadmin', sysdate(), '二级菜单：在线用户'),
 (202, '数据监控', 'data', 2, 2, '/monitor/data/index', '/monitor/data/index', 'C', '1', '0', '0', 'monitor:data:list', 'superadmin', sysdate(), '二级菜单：数据监控');
 
--- 插入二级菜单（系统工具）
+-- 插入二级菜单（在线课程）
 INSERT INTO sys_menu (menu_id, menu_name, menu_key, parent_id, order_num, path, component, menu_type, is_frame, visible, status, perms, create_by, create_time, remark)
 VALUES 
-(301, '测试页面', 'test', 3, 1, '/tools/test/index', '/tools/test/index', 'C', '1', '0', '0', 'tool:test:list', 'superadmin', sysdate(), '二级菜单：测试页面');
+(301, '在线课程', 'course', 3, 1, '/education/course/index', '/education/course/index', 'C', '1', '0', '0', 'edu:course:list', 'superadmin', sysdate(), '二级菜单：在线课程'),
+(302, '课程管理', 'cmanage', 3, 2, '/education/manage/index', '/education/manage/index', 'C', '1', '0', '0', 'edu:manage:list', 'superadmin', sysdate(), '二级菜单：课程管理');
+
+-- 插入二级菜单（在线实验）
+INSERT INTO sys_menu (menu_id, menu_name, menu_key, parent_id, order_num, path, component, menu_type, is_frame, visible, status, perms, create_by, create_time, remark)
+VALUES 
+(401, '实验室', 'lab', 4, 1, '/experiment/lab/index', '/experiment/lab/index', 'C', '1', '0', '0', 'exp:lab:list', 'superadmin', sysdate(), '二级菜单：实验室'),
+(402, '实验作业', 'assignment', 4, 2, '/education/assignment/index', '/experiment/assignment/index', 'C', '1', '0', '0', 'exp:assignment:list', 'superadmin', sysdate(), '二级菜单：实验作业'),
+(403, '实验管理', 'emanage', 4, 3, '/experiment/emanage/index', '/experiment/emanage/index', 'C', '1', '0', '0', 'exp:emanage:list', 'superadmin', sysdate(), '二级菜单：实验管理'),
+(404, '作业管理', 'amanage', 4, 4, '/experiment/amanage/index', '/experiment/amanage/index', 'C', '1', '0', '0', 'exp:amanage:list', 'superadmin', sysdate(), '二级菜单：作业管理');
 
 -- 插入按钮权限（系统管理 - 增删改查）
 INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, menu_type, is_frame, visible, status, perms, icon, create_by, create_time, remark)
@@ -216,7 +226,8 @@ create table sys_role_menu (
 -- 一级菜单
 INSERT INTO sys_role_menu VALUES (1, 1); -- 系统管理
 INSERT INTO sys_role_menu VALUES (1, 2); -- 系统监控
-INSERT INTO sys_role_menu VALUES (1, 3); -- 系统工具
+INSERT INTO sys_role_menu VALUES (1, 3); -- 在线教学
+INSERT INTO sys_role_menu VALUES (1, 4); -- 在线实验
 
 -- 系统管理子菜单
 INSERT INTO sys_role_menu VALUES (1, 101); -- 用户管理
@@ -234,8 +245,15 @@ INSERT INTO sys_role_menu VALUES (1, 602); -- 登录日志管理
 INSERT INTO sys_role_menu VALUES (1, 201); -- 在线用户
 INSERT INTO sys_role_menu VALUES (1, 202); -- 数据监控
 
--- 系统工具子菜单
-INSERT INTO sys_role_menu VALUES (1, 301); -- 测试页面
+-- 在线教学子菜单
+INSERT INTO sys_role_menu VALUES (1, 301); -- 在线课程
+INSERT INTO sys_role_menu VALUES (1, 302); -- 课程管理
+
+-- 在线实验子菜单
+INSERT INTO sys_role_menu VALUES (1, 401); -- 实验室
+INSERT INTO sys_role_menu VALUES (1, 402); -- 实验作业
+INSERT INTO sys_role_menu VALUES (1, 403); -- 实验管理
+INSERT INTO sys_role_menu VALUES (1, 404); -- 作业管理
 
 -- 按钮权限（增删改查）
 INSERT INTO sys_role_menu VALUES (1, 1001); -- 用户新增
