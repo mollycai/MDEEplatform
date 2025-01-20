@@ -1,3 +1,7 @@
+drop database if exists mdee_db;
+create database mdee_db;
+use mdee_db;
+
 -- ----------------------------
 -- 1.用户表
 -- ----------------------------
@@ -296,13 +300,13 @@ INSERT INTO sys_role_menu VALUES (3, 301); -- 测试页面
 
 
 -- ----------------------------
--- 7、部门表
+-- 7、部门表（分学院、专业、班级三类，对应`D`, `M`, `C`）
 -- ----------------------------
 drop table if exists sys_dept;
 create table sys_dept (
   dept_id           int             not null auto_increment    comment '部门id',
   parent_id         int             default 0                  comment '父部门id',
-  ancestors         varchar(50)     default ''                 comment '祖级列表',
+	dept_type         char(1)         default ''                 comment '部门类型（D:学院，M:专业，C:班级）',
   dept_name         varchar(30)     default ''                 comment '部门名称',
   order_num         int(4)          default 0                  comment '显示顺序',
   leader            varchar(20)     default null               comment '负责人',
@@ -321,7 +325,7 @@ create table sys_dept (
 -- ----------------------------
 -- 8、角色和部门关联表  角色1-N部门
 -- ----------------------------
-drop table if exists sys_role_dept;
+drop table if exists sys_user_dept;
 create table sys_role_dept (
   role_id   int        not null comment '角色ID',
   dept_id   int        not null comment '部门ID',
@@ -346,7 +350,7 @@ create table sys_post
   status        char(1)         not null                   comment '状态（0正常 1停用）',
   create_by     varchar(64)     default ''                 comment '创建者',
   create_time   datetime                                   comment '创建时间',
-  update_by     varchar(64)     default ''			       comment '更新者',
+  update_by     varchar(64)     default ''			           comment '更新者',
   update_time   datetime                                   comment '更新时间',
   remark        varchar(500)    default null               comment '备注',
   del_flag      char(1)         default '0'                comment '删除标志（0代表存在 2代表删除）',
@@ -367,3 +371,53 @@ create table sys_user_post
 -- ----------------------------
 -- 初始化-用户与岗位关联表数据
 -- ----------------------------
+
+-- ----------------------------
+-- 11、操作日志记录
+-- ----------------------------
+drop table if exists sys_oper_log;
+create table sys_oper_log (
+  oper_id           int             not null auto_increment    comment '日志主键',
+  title             varchar(50)     default ''                 comment '模块标题',
+  business_type     int(2)          default 0                  comment '业务类型（0其它 1新增 2修改 3删除）',
+  method            varchar(100)    default ''                 comment '方法名称',
+  request_method    varchar(10)     default ''                 comment '请求方式',
+  operator_type     char(1)         default 0                  comment '操作类别（0其它 1后台用户 2手机端用户）',
+  oper_name         varchar(50)     default ''                 comment '操作人员',
+  dept_name         varchar(50)     default ''                 comment '部门名称',
+  oper_url          varchar(255)    default ''                 comment '请求URL',
+  oper_ip           varchar(128)    default ''                 comment '主机地址',
+  oper_location     varchar(255)    default ''                 comment '操作地点',
+  oper_param        varchar(2000)   default ''                 comment '请求参数',
+  json_result       varchar(2000)   default ''                 comment '返回参数',
+  status            char(1)         default '0'                comment '操作状态（0正常 1异常）',
+  error_msg         varchar(2000)   default ''                 comment '错误消息',
+  oper_time         datetime                                   comment '操作时间',
+  cost_time         int             default 0                  comment '消耗时间',
+  primary key (oper_id),
+  key idx_sys_oper_log_bt (business_type),
+  key idx_sys_oper_log_s  (status),
+  key idx_sys_oper_log_ot (oper_time)
+) engine=innodb auto_increment=100 comment = '操作日志记录';
+
+
+-- ----------------------------
+-- 12、文件上传记录
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_upload`;
+CREATE TABLE `sys_upload` (
+  `status` char(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `del_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除标志',
+  `create_by` varchar(64) NOT NULL DEFAULT '' COMMENT '创建者',
+  `create_time` datetime(6) DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+  `update_by` varchar(64) NOT NULL DEFAULT '' COMMENT '更新者',
+  `update_time` datetime(6) DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+  `remark` varchar(500) DEFAULT NULL COMMENT '备注',
+  `upload_id` varchar(255) NOT NULL COMMENT '任务Id',
+  `size` int NOT NULL COMMENT '文件大小',
+  `file_name` varchar(255) NOT NULL COMMENT '文件路径',
+  `new_file_name` varchar(255) NOT NULL COMMENT '文件名',
+  `url` varchar(255) NOT NULL COMMENT '文件地址',
+  `ext` varchar(255) DEFAULT NULL COMMENT '拓展名',
+  PRIMARY KEY (`upload_id`)
+) ENGINE=InnoDB COMMENT='文件上传记录';

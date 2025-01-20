@@ -7,7 +7,6 @@ import svgLoader from 'vite-svg-loader';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 
-import { vitePluginFakeServer } from 'vite-plugin-fake-server';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { resolve } from 'path';
 import { defineConfig, loadEnv } from 'vite';
@@ -40,13 +39,6 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         include: [resolve(__dirname, './locales/src/**')],
       }),
       svgLoader(),
-      // mock支持
-      vitePluginFakeServer({
-        logger: false,
-        include: 'mock',
-        infixName: false,
-        enableProd: true,
-      }),
       AutoImport({
         resolvers: [ElementPlusResolver()],
       }),

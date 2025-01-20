@@ -5,6 +5,7 @@ export default {
     icon: 'ri:information-line',
     title: '异常页面',
     rank: 9,
+    showLink: false,
   },
   children: [
     {
